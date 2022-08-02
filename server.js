@@ -8,7 +8,10 @@ const PORT = process.env.PORT || 3001
 // get sequelize connection
 const sequelize = require("./config/connection")
 
+const hbs = exphbs.create()
+
 // set view engine
+app.engine("handlebars", hbs.engine)
 app.set('view engine', 'handlebars')
 
 // middleware

@@ -1,1 +1,7 @@
- 
+ <ol id="postList">
+    {{#each posts as |post|}}
+    <li id="post">
+        {{> post-info post}}
+    </li>
+    {{/each}}
+ </ol>

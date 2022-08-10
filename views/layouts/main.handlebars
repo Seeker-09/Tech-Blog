@@ -14,9 +14,12 @@
         </h1>
         <nav>
             <a href="/">Homepage</a>
+            {{#if loggedIn}}
             <a href="/dashboard">Dashboard</a>
             <button id="logout">logout</button>
+            {{else}}
             <a href="/login">Login</a>
+            {{/if}}
         </nav>
     </header>
     <main>
@@ -25,6 +28,8 @@
     <footer class="mt-auto">
         Thanks for visiting
     </footer>
+    {{#if loggedIn}}
     <script src="/javascript/logout.js"></script>
+    {{/if}}
 </body>
 </html>

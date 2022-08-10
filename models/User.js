@@ -2,7 +2,12 @@ const { Model, DataTypes } = require("sequelize")
 const sequelize = require("../config/connection")
 
 // create user model
-class User extends Model {}
+class User extends Model {
+    // method to compare passwords
+    checkPassword(loginPw) {
+        return loginPw === this.password
+    }
+}
 
 // create attributes of user
 User.init(

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
         })
 })
 
+// create a user
 router.post('/', (req, res) => {
     /* expects:
         username
@@ -33,6 +34,36 @@ router.post('/', (req, res) => {
         .catch(err => {
             console.log(err)
             res.status(500).json(err)
+        })
+})
+
+// login
+router.post('/login', (req, res) => {
+    User.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+        .then(userData => {
+            if(!userData) {
+                res.status(400).json({ message: 'no user with this id found' })
+                return
+            }
+
+            const validPassword = userData.checkPassword(req.body.password)
+
+            if(!validPassword) {
+                res.status(400).json({ message: 'wrong password' })
+                return
+            }
+
+            req.session.save(() => {
+                req.session.user_id = userData.id
+                req.session.username = userData.username
+                req.session.loggedIn = true
+
+                res.json({ user: userData, message: 'you are now logged in' })
+            })
         })
 })
 

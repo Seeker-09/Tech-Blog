@@ -2,11 +2,11 @@ const router = require("express").Router()
 const sequelize = require('../config/connection')
 const { Post } = require('../models')
 
-// load homepage
+// load homepage with posts
 router.get('/', (req, res) => {
     Post.findAll()
         .then((dbPostData) => {
-             const posts = dbPostData.map((post) => post.get({ plain: true }))
+            const posts = dbPostData.map((post) => post.get({ plain: true }))
 
             res.render("homepage", {posts})
         })
@@ -19,6 +19,11 @@ router.get('/', (req, res) => {
 // get login page
 router.get("/login", (req, res) => {
     res.render("login")
+})
+
+// render signup page
+router.get("/signup", (req, res) => {
+    res.render('signup')
 })
 
 module.exports = router

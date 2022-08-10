@@ -19,6 +19,31 @@ router.get('/', (req, res) => {
         }))
 })
 
+// load a single post
+router.get('/post/:id', (req, res) => {
+    Post.findOne({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(postData => {
+            if(!postData) {
+                res.status(404).json({ message: "no post with this id found" })
+                return
+            }
+
+            const post = postData.get({ plain: true })
+
+            res.render('single-post', {
+                post
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+})
+
 // get login page
 router.get("/login", (req, res) => {
     res.render("login")

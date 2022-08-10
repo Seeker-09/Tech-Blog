@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require("sequelize")
+const { Model, DataTypes, Sequelize } = require("sequelize")
 const sequelize = require("../config/connection")
 
 // create post model
@@ -20,6 +20,9 @@ Post.init(
         body: {
             type: DataTypes.STRING, 
             allowNull: false
+        }, 
+        createdAt: {
+            type: Sequelize.DATEONLY
         }
     },
     {
